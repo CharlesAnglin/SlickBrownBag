@@ -13,6 +13,7 @@ trait IntegrationTests extends WordSpec with MustMatchers with GuiceOneAppPerSui
 
   private lazy val databaseApi = app.injector.instanceOf[DBApi]
 
+  //What exactly is this doing?
   override protected lazy val dbConfigProvider: DatabaseConfigProvider =
     new DatabaseConfigProvider {
       override def get[P <: BasicProfile]: DatabaseConfig[P] = DatabaseConfigProvider.get[P]("charlie")
@@ -21,5 +22,9 @@ trait IntegrationTests extends WordSpec with MustMatchers with GuiceOneAppPerSui
   def await[T](awaitable: Awaitable[T], duration: Duration = Duration.Inf): T = Await.result(awaitable, duration)
 
   def awaitDatabase[R](a: DBIOAction[R, NoStream, Nothing]): R = await(dbConfig.db.run(a))
+
+
+
+
 
 }
