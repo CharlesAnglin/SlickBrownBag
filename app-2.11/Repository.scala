@@ -6,6 +6,7 @@ import slick.dbio.DBIO
 import slick.jdbc.JdbcProfile
 
 import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext.Implicits.global
 
 @Singleton
 class Repository @Inject()(val teamstore: TeamStore) {
@@ -14,15 +15,9 @@ class Repository @Inject()(val teamstore: TeamStore) {
 
   lazy val dbConfig = teamstore.dbConfigProvider.get[JdbcProfile]
 
-  def insertEnrolment(string: String)(implicit ec: ExecutionContext): Future[Unit] = {
-    import dbConfig._
-    import dbConfig.profile.api._
-
-    db.run(findAllPeopleQuery).map(_ => Unit)
-  }
-
-  //Highly convoluted exmaple...
+  //Highly convoluted example...
   //person name is not uniquie...
+  //Can treat DBIO actions just like futures... and TRANSACTIONS!
   def switchTeams(name: String, newTeam: String, fullCapacity: Boolean) = {
     import dbConfig._
     import dbConfig.profile.api._
@@ -32,7 +27,7 @@ class Repository @Inject()(val teamstore: TeamStore) {
         teamID <- findTeamId(newTeam)
         personID <- findPersonID(name)
         updatePersonsTeam <- updateTeam(personID, Some(teamID))
-        updateTeamCapactiy <- updateCapacity(teamID, fullCapacity)
+        updateTeamCapacity <- updateCapacity(teamID, fullCapacity)
       } yield ()).transactionally
     }
   }
