@@ -13,5 +13,6 @@ libraryDependencies ++= Seq(
   "org.postgresql" % "postgresql" % "42.1.4",
   "com.github.tminglei" %% "slick-pg" % "0.15.3",
   "com.github.tminglei" %% "slick-pg_play-json" % "0.15.3",
-  "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.1"
+  "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.1",
+  "com.h2database" % "h2" % "1.4.192"
 )

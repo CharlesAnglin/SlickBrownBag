@@ -1,3 +1,4 @@
+import org.h2.engine.Database
 import org.scalatest.{MustMatchers, WordSpec}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.db.DBApi
@@ -13,7 +14,8 @@ trait IntegrationTests extends WordSpec with MustMatchers with GuiceOneAppPerSui
 
   private lazy val databaseApi = app.injector.instanceOf[DBApi]
 
-  //What exactly is this doing?
+//  //What exactly is this doing?
+// Each table expects the ConfigProvider to be inherited, play-slick will inject this for you automatically however we're doing tests so we insert our own.
   override protected lazy val dbConfigProvider: DatabaseConfigProvider =
     new DatabaseConfigProvider {
       override def get[P <: BasicProfile]: DatabaseConfig[P] = DatabaseConfigProvider.get[P]("charlie")
@@ -22,9 +24,6 @@ trait IntegrationTests extends WordSpec with MustMatchers with GuiceOneAppPerSui
   def await[T](awaitable: Awaitable[T], duration: Duration = Duration.Inf): T = Await.result(awaitable, duration)
 
   def awaitDatabase[R](a: DBIOAction[R, NoStream, Nothing]): R = await(dbConfig.db.run(a))
-
-
-
 
 
 }
