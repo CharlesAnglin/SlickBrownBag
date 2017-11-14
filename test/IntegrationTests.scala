@@ -10,6 +10,7 @@ import slick.jdbc.JdbcProfile
 import scala.concurrent.{Await, Awaitable}
 import scala.concurrent.duration.Duration
 
+//* As an example of this in action we can run our new functions in some tests, here we make a trait to include the DB profile (recall that TeamTable specified it needed that) as well as some helpful functions we'll meet in a second.
 trait IntegrationTests extends WordSpec with MustMatchers with GuiceOneAppPerSuite with HasDatabaseConfigProvider[JdbcProfile] {
 
   private lazy val databaseApi = app.injector.instanceOf[DBApi]

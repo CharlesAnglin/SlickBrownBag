@@ -6,8 +6,8 @@ class RepositorySpec extends IntegrationTests {
 
   import repository._
 
-  "abc" must {
-    "123" in {
+  "switchTeams" must {
+    "put Yen in EMAC" in {
       //Requires other IT tests to be run to create tables and populate data... which leads on to Evolutions...
       println(Console.YELLOW + awaitDatabase(findAllTeamsQuery) + Console.RESET)
       println(Console.YELLOW + awaitDatabase(findAllPeopleQuery) + Console.RESET)
@@ -17,11 +17,11 @@ class RepositorySpec extends IntegrationTests {
       println(Console.YELLOW + awaitDatabase(findAllTeamsQuery) + Console.RESET)
       println(Console.YELLOW + awaitDatabase(findAllPeopleQuery) + Console.RESET)
     }
-    "456" in {
-      //checks to see if evolutions works
-      println(Console.YELLOW + awaitDatabase(findAllTeamsQuery) + Console.RESET)
-      println(Console.YELLOW + awaitDatabase(findAllPeopleQuery) + Console.RESET)
-    }
+//    "456" in {
+//      //checks to see if evolutions works
+//      println(Console.YELLOW + awaitDatabase(findAllTeamsQuery) + Console.RESET)
+//      println(Console.YELLOW + awaitDatabase(findAllPeopleQuery) + Console.RESET)
+//    }
   }
 
 }
