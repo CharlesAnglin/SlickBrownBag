@@ -2,10 +2,8 @@ import repository.{Repository, TeamStore}
 
 class RepositorySpec extends IntegrationTests {
 
-  val teamStore = app.injector.instanceOf[TeamStore]
-  val repository = new Repository(teamStore)
+  val repository = new Repository(dbConfigProvider)
 
-  import teamStore._
   import repository._
 
   "abc" must {
