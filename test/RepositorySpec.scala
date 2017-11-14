@@ -1,4 +1,4 @@
-import repository.{Repository, TeamStore}
+import repository.Repository
 
 class RepositorySpec extends IntegrationTests {
 
