@@ -1,13 +1,13 @@
 package utils
 
-import javax.inject.{Inject, Singleton}
+import javax.inject.Inject
 
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import play.db.NamedDatabase
 import slick.jdbc.JdbcProfile
 import tables.PeopleTable
 
-@Singleton
+//* We "cheat" by creating a class which has access to the tables and prints the SQL statements out so we can copy and paste them into the evolutions file
 class SchemaBuilder @Inject()(@NamedDatabase("charlie") val dbConfigProvider: DatabaseConfigProvider)
   extends PeopleTable with HasDatabaseConfigProvider[JdbcProfile] {
 
@@ -17,6 +17,7 @@ class SchemaBuilder @Inject()(@NamedDatabase("charlie") val dbConfigProvider: Da
     val tables = Seq(team, people)
       .map(_.asInstanceOf[TableQuery[Table[Any]]])
 
+    //* The "ups" tells evolutions how to set up the tables and insert any required data, e.g. enums.
     println("# --- !Ups")
     tables.foreach { t => t.schema.createStatements.foreach(s => println(s + ";")); println() }
     println()
@@ -27,6 +28,7 @@ class SchemaBuilder @Inject()(@NamedDatabase("charlie") val dbConfigProvider: Da
     println("""insert into "people" ("name", "team")  values ('Yen', '2');""")
     println("""insert into "people" ("name", "team")  values ('Dan', null);""")
     println()
+    //* The downs tells evolutions how to tear down the tables once we're finished.
     println("# --- !Downs")
     tables.reverse.foreach { t => t.schema.dropStatements.foreach(s => println(s + ";")); println() }
   }

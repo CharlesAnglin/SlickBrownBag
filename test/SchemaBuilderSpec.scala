@@ -1,11 +1,11 @@
 import utils.SchemaBuilder
 
-class SchemaRepositorySpec extends IntegrationTests {
+class SchemaBuilderSpec extends IntegrationTests {
 
   lazy val schemaBuilder = app.injector.instanceOf[SchemaBuilder]
 
-  "getSchema" must {
-    "generate the enrolments collection schema" in {
+  "schemaBuilder" must {
+    "generate schema" in {
       schemaBuilder.printSchemas()
     }
   }
