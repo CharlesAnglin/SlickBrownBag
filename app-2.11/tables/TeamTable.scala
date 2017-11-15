@@ -1,6 +1,6 @@
 package tables
 
-import models.{People, Team}
+import models.Team
 import play.api.db.slick.HasDatabaseConfigProvider
 import slick.jdbc.JdbcProfile
 
@@ -26,19 +26,19 @@ trait TeamTable {
   //* We treat the TableQuery definition as our "scala collection", e.g. think of it as just a list.
   protected val team = TableQuery[TeamTable]
 
-// * Adding result turns our collection into a DBIOAction(More on these later). E.g. the rule is manipulate your collection to what you want and then add ".result" on the end
+  //* Adding result turns our collection into a DBIOAction(More on these later). E.g. the rule is manipulate your collection to what you want and then add ".result" on the end
   def findAllTeamsQuery =
-    team.result
+  team.result
 
-  // * Here we only want the first result so we use ".head" - but after the ".result", not before.
+  //* Here we only want the first result so we use ".head" - but after the ".result", not before.
   def findTeamId(teamName: String) =
-    team.filter(_.teamName===teamName).map(_.teamID).result.head
+  team.filter(_.teamName === teamName).map(_.teamID).result.head
 
-//  * Changing data is the same idea, we manipulate the collection to find the values we want and then just call a different function on it, here we use ".update"
+  //* Changing data is the same idea, we manipulate the collection to find the values we want and then just call a different function on it, here we use ".update"
   def updateCapacity(teamID: Int, fullCapacity: Boolean) =
-    team.filter(_.teamID===teamID).map(_.fullCapacity).update(fullCapacity)
+  team.filter(_.teamID === teamID).map(_.fullCapacity).update(fullCapacity)
 
-//  * Here we're adding a new record. We could simply do "team += Team(a,b)" however as the teamID column is being made for us we would like it to be returned after inserting - this is what the "returning" syntax does
+  //* Here we're adding a new record. We could simply do "team += Team(a,b)" however as the teamID column is being made for us we would like it to be returned after inserting - this is what the "returning" syntax does
   def createTeamReturningIDQuery(teamName: String, fullCapactity: Boolean) =
-    team returning team.map(_.teamID) += Team(teamName, fullCapactity)
+  team returning team.map(_.teamID) += Team(teamName, fullCapactity)
 }

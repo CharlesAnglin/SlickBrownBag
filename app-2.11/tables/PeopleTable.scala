@@ -17,7 +17,7 @@ trait PeopleTable extends TeamTable {
 
     def teamID = column[Option[Int]]("team")
 
-//    * Looks very similar to the TeamTable but this time we add a foreign key linking this table to the TeamTable. Note that you can add extra arguments in here on what to do when updating or deleting this column.
+    //* Looks very similar to the TeamTable but this time we add a foreign key linking this table to the TeamTable. Note that you can add extra arguments in here on what to do when updating or deleting this column.
     def teamFk = foreignKey("team_FK", teamID, team)(_.teamID)
 
     override def * = (name, teamID, personID) <>
@@ -30,10 +30,10 @@ trait PeopleTable extends TeamTable {
     people.result
 
   def findPersonID(name: String) =
-    people.filter(_.name===name).map(_.personID).result.head
+    people.filter(_.name === name).map(_.personID).result.head
 
   def updateTeam(personID: Int, teamID: Option[Int]) =
-    people.filter(_.personID===personID).map(_.teamID).update(teamID)
+    people.filter(_.personID === personID).map(_.teamID).update(teamID)
 
   def createPersonReturningIDQuery(name: String, team: Option[Int] = None) =
     people returning people.map(_.personID) += People(name, team)
