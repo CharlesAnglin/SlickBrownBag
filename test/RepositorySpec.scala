@@ -8,20 +8,21 @@ class RepositorySpec extends IntegrationTests {
 
   "switchTeams" must {
     "put Yen in EMAC" in {
-      //Requires other IT tests to be run to create tables and populate data... which leads on to Evolutions...
-      println(Console.YELLOW + awaitDatabase(findAllTeamsQuery) + Console.RESET)
-      println(Console.YELLOW + awaitDatabase(findAllPeopleQuery) + Console.RESET)
+//      * First of all we need to insert some data to play with.
+      awaitDatabase(createTeamReturningIDQuery("EMAC", false))
+      val rateId = awaitDatabase(createTeamReturningIDQuery("RATE", false))
+      awaitDatabase(createPersonReturningIDQuery("Yen", Some(rateId)))
+
+//      * print lines before and after to see what's changed.
+      println(Console.MAGENTA + awaitDatabase(findAllTeamsQuery) + Console.RESET)
+      println(Console.MAGENTA + awaitDatabase(findAllPeopleQuery) + Console.RESET)
 
       await(switchTeams("Yen", "EMAC", true))
 
       println(Console.YELLOW + awaitDatabase(findAllTeamsQuery) + Console.RESET)
       println(Console.YELLOW + awaitDatabase(findAllPeopleQuery) + Console.RESET)
     }
-//    "456" in {
-//      //checks to see if evolutions works
-//      println(Console.YELLOW + awaitDatabase(findAllTeamsQuery) + Console.RESET)
-//      println(Console.YELLOW + awaitDatabase(findAllPeopleQuery) + Console.RESET)
-//    }
+
   }
 
 }
