@@ -26,10 +26,10 @@ class SchemaBuilder @Inject()(@NamedDatabase("charlie") val dbConfigProvider: Da
     println()
     println("""insert into "people" ("name", "team")  values ('Charlie', '1');""")
     println("""insert into "people" ("name", "team")  values ('Yen', '2');""")
-    println("""insert into "people" ("name", "team")  values ('Dan', null);""")
     println()
     //* The downs tells evolutions how to tear down the tables once we're finished.
     println("# --- !Downs")
     tables.reverse.foreach { t => t.schema.dropStatements.foreach(s => println(s + ";")); println() }
   }
+  //* The printed lines need to be copy and pasted into a file called "1.sql" under "conf/evolutions/{databasename}".
 }

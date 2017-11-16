@@ -6,11 +6,10 @@ alter table "people" add constraint "team_FK" foreign key("team") references "te
 
 
 insert into "team" ("teamName", "fullCapacity")  values ('EMAC', 'false');
-insert into "team" ("teamName", "fullCapacity")  values ('RATE', 'false');
+--insert into "team" ("teamName", "fullCapacity")  values ('RATE', 'false');
 
 insert into "people" ("name", "team")  values ('Charlie', '1');
-insert into "people" ("name", "team")  values ('Yen', '2');
-insert into "people" ("name", "team")  values ('Dan', null);
+--insert into "people" ("name", "team")  values ('Yen', '2');
 
 # --- !Downs
 alter table "people" drop constraint "team_FK";
