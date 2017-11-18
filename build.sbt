@@ -8,11 +8,14 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 scalaVersion := "2.11.11"
 
 libraryDependencies ++= Seq(
-  "com.typesafe.play" %% "play-slick" % "2.1.0",
-  "com.typesafe.play" %% "play-slick-evolutions" % "2.1.0",
-  "org.postgresql" % "postgresql" % "42.1.4",
-  "com.github.tminglei" %% "slick-pg" % "0.15.3",
-  "com.github.tminglei" %% "slick-pg_play-json" % "0.15.3",
+  //* So we can show Slick in action using tests
   "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.1",
+  //* Postgres JDBC driver
+  "org.postgresql" % "postgresql" % "42.1.4",
+  //* Main Slick dependency
+  "com.typesafe.play" %% "play-slick" % "2.1.0",
+  //* Evolutions dependency
+  "com.typesafe.play" %% "play-slick-evolutions" % "2.1.0",
+  //* Embedded database dependency
   "com.h2database" % "h2" % "1.4.192"
 )
