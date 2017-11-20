@@ -21,9 +21,9 @@ class Repository @Inject()(@NamedDatabase("charlie") val dbConfigProvider: Datab
 
   //* To stop someone else moving on to the team we want to update transitionally, e.g. either the person moves and we set the team to fullCapacity or we do neither. Here all we have to to is append ".transactionally" to our DBIOAction to make this happen.
   def switchTeams(name: String, newTeam: String, fullCapacity: Boolean) = {
-    import dbConf._
     import dbConf.profile.api._
 
+    //* Using "db.run" just like we where in TableSpec. We also note that if you're returning a collection from your query you can get an Akka publisher back allowing you to stream the result by using "db.stream".
     dbConf.db.run {
       //* As mentioned we can play with DBIOActions just like we would with futures so here we use a for yield to combine several DBIOActions together.
       (for {

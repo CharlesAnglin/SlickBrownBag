@@ -1,4 +1,4 @@
 package models
 
-//If the id is set to auto inc it doesn't matter what value you put in - it will handel it for you. So we just set it to 0 by default and never pass it in.
+//* We will set teamId to auto increment, this means that Slick doesn't care what value we pass in as it will replace it with it's own value. So for ease we can just give it any default value.
 case class Team(teamName: String, fullCapacity: Boolean, teamId: Int = 0)

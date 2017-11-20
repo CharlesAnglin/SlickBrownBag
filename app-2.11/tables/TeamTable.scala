@@ -13,6 +13,7 @@ trait TeamTable {
   //* Tables are pretty boiler plate (so much so there exist things to define it for you). The main things we need are a case class of the data to go in, a column definition for each variable of the case class, boiler plate class, * and TableQuery definitions.
   class TeamTable(tag: Tag) extends Table[Team](tag, "team") {
 
+    //* We set the primary key and any other restrictions with secondary arguments.
     def teamID = column[Int]("teamID", O.PrimaryKey, O.AutoInc)
 
     def teamName = column[String]("teamName", O.Unique)
@@ -31,6 +32,7 @@ trait TeamTable {
   team.result
 
   //* Here we only want the first result so we use ".head" - but after the ".result", not before.
+  //* Also note that for equality we need to use "===" and not "==".
   def findTeamId(teamName: String) =
   team.filter(_.teamName === teamName).map(_.teamID).result.head
 
