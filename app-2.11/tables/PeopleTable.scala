@@ -17,7 +17,7 @@ trait PeopleTable extends TeamTable {
 
     def teamID = column[Option[Int]]("team")
 
-    //* Looks very similar to the TeamTable but this time we add a foreign key linking this table to the TeamTable. Note that you can add extra arguments in here on what to do when updating or deleting this column.
+    //* Looks very similar to the TeamTable but this time we add a foreign key linking this table to the TeamTable. We give the key a name, say which of our columns it applies to, what table we want it to connect to and then which column in the specified table it should reference. Note that you can add extra arguments in here on what to do when updating or deleting this column.
     def teamFk = foreignKey("team_FK", teamID, team)(_.teamID)
 
     override def * = (name, teamID, personID) <>
