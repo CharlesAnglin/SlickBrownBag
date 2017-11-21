@@ -6,8 +6,12 @@ class TableSpec extends IntegrationTests with PeopleTable {
   import dbConfig.profile.api._
 
   //* We first have to create our tables in the DB, "awaitDatabase" executes things against the DB, more on that in a second.
-  val createTables = (team.schema ++ people.schema).create
-  awaitDatabase(createTables)
+  "createTables" must {
+    "create the schema" in {
+      val createTables = (team.schema ++ people.schema).create
+      awaitDatabase(createTables)
+    }
+  }
 
   "team table" must {
     "insert a team into the DB" in {
