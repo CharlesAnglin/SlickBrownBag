@@ -12,7 +12,7 @@ import scala.concurrent.{Await, Awaitable}
 //* As an example of this in action we can run our new functions in some tests, here we make a trait to include the DB profile (recall that TeamTable specified it needed that) as well as some helpful functions we'll meet in a second.
 trait IntegrationTests extends WordSpec with MustMatchers with GuiceOneAppPerSuite with HasDatabaseConfigProvider[JdbcProfile] {
 
-  private lazy val databaseApi = app.injector.instanceOf[DBApi]
+//  private lazy val databaseApi = app.injector.instanceOf[DBApi]
 
   // ~~~  Each table expects the ConfigProvider to be inherited, play-slick will inject this for you automatically however we're doing tests so we insert our own.
   override protected lazy val dbConfigProvider: DatabaseConfigProvider =

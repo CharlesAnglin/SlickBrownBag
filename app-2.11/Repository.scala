@@ -9,7 +9,7 @@ import tables.PeopleTable
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-//* The overall idea for the layout is to inject the database config into this repository class (this is handeled by Slick, all we do is name the database to match the application config).
+//* The overall idea for the layout is to inject the database config into this repository class (this is handled by Slick, all we do is name the database to match the application config).
 //* Once we have the DB connection we also inherit the tables we've defined. When the tables are dependent they will inherit from each other so in this case although we will define two tables, because they're connected by a foreign key we only need to inherit one.
 class Repository @Inject()(@NamedDatabase("charlie") val dbConfigProvider: DatabaseConfigProvider)
   extends HasDatabaseConfigProvider[JdbcProfile] with PeopleTable {
